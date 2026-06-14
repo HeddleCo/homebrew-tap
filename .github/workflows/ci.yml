@@ -1,0 +1,39 @@
+name: Tap CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tap-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: audit casks
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit casks
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          casks=(Casks/*.rb)
+          if (( ${#casks[@]} == 0 )); then
+            echo "No casks to audit yet."
+            exit 0
+          fi
+
+          brew update --quiet
+          brew style --cask "${casks[@]}"
+          for cask in "${casks[@]}"; do
+            brew audit --cask --strict "$cask"
+          done
