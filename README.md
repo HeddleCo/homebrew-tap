@@ -2,6 +2,8 @@
 
 This tap publishes the macOS Heddle cask.
 
+After the first stable cask release is merged:
+
 ```bash
 brew install --cask heddleco/heddle/heddle
 ```
