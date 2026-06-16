@@ -18,6 +18,12 @@ jobs:
     name: audit casks
     runs-on: macos-26
     timeout-minutes: 15
+    env:
+      # Auditing our OWN tap from a local checkout: register it as a tap, and
+      # bypass Homebrew's newer "tap must be trusted" gate (the cask lives in
+      # this same repo, so it is trusted by construction).
+      HOMEBREW_NO_REQUIRE_TAP_TRUST: "1"
+      HOMEBREW_NO_INSTALL_FROM_API: "1"
     steps:
       - uses: actions/checkout@v4
 
@@ -33,9 +39,8 @@ jobs:
           fi
 
           brew update --quiet
-          # Homebrew only style/audits casks that belong to a REGISTERED tap.
-          # Register this checkout as heddleco/heddle from its local path so the
-          # casks resolve as tap members (otherwise: "casks must be in a tap").
+          # Homebrew only style/audits casks that belong to a registered tap;
+          # register this checkout as heddleco/heddle from its local path.
           brew tap heddleco/heddle "$PWD"
           brew style heddleco/heddle
           for cask in "${casks[@]}"; do
