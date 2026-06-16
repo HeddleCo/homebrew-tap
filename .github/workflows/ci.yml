@@ -33,7 +33,11 @@ jobs:
           fi
 
           brew update --quiet
-          brew style --cask "${casks[@]}"
+          # Homebrew only style/audits casks that belong to a REGISTERED tap.
+          # Register this checkout as heddleco/heddle from its local path so the
+          # casks resolve as tap members (otherwise: "casks must be in a tap").
+          brew tap heddleco/heddle "$PWD"
+          brew style heddleco/heddle
           for cask in "${casks[@]}"; do
-            brew audit --cask --strict "$cask"
+            brew audit --cask --strict "heddleco/heddle/$(basename "${cask%.rb}")"
           done
