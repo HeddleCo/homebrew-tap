@@ -2,7 +2,8 @@ cask "heddle" do
   version "0.3.0"
   sha256 "5e5527b5942827211ec6bf48ddf73d661087f0d337fde349a009d9dc52c8c307"
 
-  url "https://github.com/HeddleCo/heddle/releases/download/v#{version}/Heddle-v#{version}-macos-universal.dmg"
+  url "https://github.com/HeddleCo/heddle/releases/download/v#{version}/Heddle-v#{version}-macos-universal.dmg",
+      verified: "github.com/HeddleCo/heddle/"
   name "Heddle"
   desc "AI-native version control system"
   homepage "https://heddle.sh/"
