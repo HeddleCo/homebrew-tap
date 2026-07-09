@@ -1,6 +1,6 @@
 cask "heddle" do
-  version "0.8.0"
-  sha256 "e8b4f6a6ccc0c21d63367412375138215cdae29af6a4e2225d9e6fa25fada86f"
+  version "0.10.0"
+  sha256 "197df9c783c5620ff11b1812ea686edee8cf02c0fbcbf4c69603171bc7674922"
 
   url "https://github.com/HeddleCo/heddle/releases/download/v#{version}/Heddle-v#{version}-macos-universal.dmg",
       verified: "github.com/HeddleCo/heddle/"
